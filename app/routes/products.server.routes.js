@@ -1,22 +1,20 @@
 'use strict';
 
 module.exports = function(app) {
-	var products = require('../../app/controllers/products.server.controller');
+	var categories = require('../../app/controllers/categories.server.controller');
 
-    app.route('/products')
-        .get(products.list)
-        .post(products.create)
-    ;
+	app.route('/categories')
+		.get(categories.list)
+		.post(categories.create);
 
-    app.route('/products/:productId')
-        .put(products.update)
-        .delete(products.delete)
-        .put(products.update)
-    ;
+	app.route('/categories/:categoryId')
+		.get(categories.read)
+		.put(categories.update)
+		.delete(categories.delete);
 
-    // Finish by binding the article middleware
-    // What's this? Where the productId is present in the URL
-    // the logic to 'get by id' is handled by this single function
-    // and added to the request object i.e. request.product.
-    app.param('productId', products.productByID);
+	// Finish by binding the article middleware
+	// What's this? Where the categoryId is present in the URL
+	// the logic to 'get by id' is handled by this single function
+	// and added to the request object i.e. request.category.
+	app.param('categoryId', categories.categoryByID);
 };
