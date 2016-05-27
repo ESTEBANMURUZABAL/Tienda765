@@ -29,19 +29,18 @@ exports.create = function(req, res) {
  * Show the current Category
  */
 exports.read = function(req, res) {
-    Category.findObjectById(req.params.categoryId).exec(function(err, category) {
-        if(err) {
+    Category.findById(req.params.categoryId).exec(function(err, category) {
+        if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        }else {
-            if(!category) {
-                res.status(404).send({
-                    message: 'category not found'
+        } else {
+            if (!category) {
+                return res.status(404).send({
+                    message: 'Category not found'
                 });
-            } else {
-                return res.json(category);
             }
+            res.json(category);
         }
     });
 };
