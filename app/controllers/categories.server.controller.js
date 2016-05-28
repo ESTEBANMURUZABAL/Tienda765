@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     Category = mongoose.model('Category'),
     _ = require('lodash');
+
 /**
  * Create a Category
  */
@@ -18,32 +19,17 @@ exports.create = function(req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        }else {
+        } else {
             res.status(201).json(category);
         }
     });
-
 };
 
 /**
  * Show the current Category
  */
 exports.read = function(req, res) {
-    Category.findObjectById(req.params.categoryId).exec(function(err, category) {
-        if(err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        }else {
-            if(!category) {
-                res.status(404).send({
-                    message: 'category not found'
-                });
-            } else {
-                return res.json(category);
-            }
-        }
-    });
+    res.json(req.category);
 };
 
 /**
@@ -86,7 +72,7 @@ exports.delete = function(req, res) {
  * List of Categories
  */
 exports.list = function(req, res) {
-    Category.find().exec(function(err, categories) {
+    Category.find().sort('name').exec(function(err, categories) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -108,7 +94,7 @@ exports.categoryByID = function(req, res, next, id) {
         });
     }
 
-    Category.findById(id).exec(function (err, category) {
+    Category.findById(id).exec(function(err, category) {
         if (err) return next(err);
         if (!category) {
             return res.status(404).send({
