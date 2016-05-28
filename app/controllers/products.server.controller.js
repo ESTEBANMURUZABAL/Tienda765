@@ -20,30 +20,16 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		}else {
-			res.status(201).json(product);
+			return res.status(201).json(product);
 		}
 	});
 };
 
 /**
- * Show the current Product
+ * Show the current Category
  */
 exports.read = function(req, res) {
-	Product.findObjectById(req.params.productId).exec(function(err, product) {
-		if(err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}else {
-			if(!product) {
-				res.status(404).send({
-					message: 'product not found'
-				});
-			} else {
-				return res.json(product);
-			}
-		}
-	});
+	res.json(req.category);
 };
 
 /**
