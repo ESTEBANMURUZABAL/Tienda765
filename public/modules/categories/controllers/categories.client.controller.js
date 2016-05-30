@@ -32,7 +32,7 @@ angular.module('categories').controller('CategoriesController', ['$scope', '$sta
 			});
 		};
 
-		// Remove existing Category
+// Remove existing Category
 		$scope.remove = function(category) {
 			if ( category ) {
 				category.$remove();

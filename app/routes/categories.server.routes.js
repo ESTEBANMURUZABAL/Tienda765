@@ -12,8 +12,8 @@
 
         app.route('/categories/:categoryId')
             .get(apiAuth, users.requiresLogin, categories.read)
-            .put(apiAuth, users.requiresLogin, categories.update)
-            .delete(apiAuth, users.requiresLogin, categories.delete);
+            .put( apiAuth, users.requiresLogin, categories.update)
+            .delete( apiAuth, users.requiresLogin, categories.delete);
 
         // Finish by binding the article middleware
         // What's this? Where the categoryId is present in the URL
